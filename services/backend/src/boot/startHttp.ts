@@ -1,10 +1,9 @@
+import http from "../services/http";
 import { logger } from "../config/logger";
 import { vars } from "../config/vars";
-import http from "../services/http";
 
-export const startHttp = async () => {
+export const startHttp = () => {
     logger.info('http:running:start');
-    
     try {
         http.listen(vars.port, () => {
             logger.info(`http:running:complete; started on port: ${vars.port}`);

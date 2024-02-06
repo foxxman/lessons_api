@@ -1,17 +1,15 @@
-import { createConnection } from "typeorm";
 import { logger } from "../config/logger";
 import { AppDataSource } from "../config/dataSource";
 
 
 const connectDB = async () => {
-    await AppDataSource.initialize()
-    .then(() => {
+    try {
+        await AppDataSource.initialize()
         logger.info(`BootTasks:db:synced`);
-    })
-    .catch((error) => {
+    } catch (error:any) {
         logger.error('BootTasks:db:error')
         logger.error(error.message)
-    });
+    }   
 }
 
 export default connectDB;

@@ -12,11 +12,10 @@ export const sendResponse = async (
     res: Response,
     status: number,
     { result = {}, error }: IApiResponse = {},
-): Promise<void> => {
+): Promise<void> => {        
     const response = {
         success: result,
         error,
     };
-
     res.status(status).json(response);
 };

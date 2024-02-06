@@ -10,35 +10,29 @@ interface IProps{
     lessonsPerPage?: number,
     page?: number,
     teacherIds?: number[],
-    status?: boolean,
+    status?: string,
 }
 
-export const getLessons = ({
+export const getLessons = async ({
     date,
     startDate,
     endDate,
     studentsCount,
     studentsCountFrom,
     studentsCountTo,
-    lessonsPerPage,
-    page,
+    lessonsPerPage = 5,
+    page = 0,
     teacherIds,
     status,
 }: IProps) => {
-    const query = lessonRepository
-        .createQueryBuilder('lesson')
-        .leftJoinAndSelect('lesson.students', 'lessonStudent');
     
-    // const lessons = await lessonRepository
+    const skip = lessonsPerPage * page;
+
+    // const result = await lessonRepository
     //     .createQueryBuilder('lesson')
     //     .leftJoinAndSelect('lesson.students', 'lessonStudent')
-    //     .where('lesson.date >= :startDate AND lesson.date <= :endDate', { startDate, endDate })
-    //     .groupBy('lesson.id')
-    //     .having(`COUNT(lessonStudent.studentId) BETWEEN :minStudents AND :maxStudents`, {
-    //         minStudents,
-    //         maxStudents,
-    //     })
     //     .skip(skip)
     //     .take(lessonsPerPage)
     //     .getRawMany();
+    return [];
 }

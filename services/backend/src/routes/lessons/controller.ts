@@ -21,6 +21,7 @@ interface getLessonsData {
     endDate?: Date,
     date?: Date,
 
+    status?: boolean,
     teacherIds?: number[],
 }
 
@@ -67,32 +68,19 @@ export const getLesson = async (req: CustomRequest<PathParameters.GetLessons, {}
         page,
         status,
     } = req.query
-
-    const {
-        studentsCountFrom,
-        studentsCountTo,
-        studentsCount,
-        startDate,
-        endDate,
-        date,
-        teacherIds,
-    } = req.data as getLessonsData;
     
     try {
         const lessons = await getLessons({
-            date,
-            startDate,
-            endDate,
-            studentsCount,
-            studentsCountFrom,
-            studentsCountTo,
+            ...req.data,
             lessonsPerPage: Number(lessonsPerPage) || undefined,
             page: Number(page) || undefined,
-            teacherIds,
-            status,
+            status: typeof status === "undefined" ? status : String(status),
         })
 
-    } catch (error) {
-        
+        sendResponse(res, httpStatus.OK, {
+            result: { lessons }
+        })
+    } catch (error:any) {
+        sendResponse(res, httpStatus.BAD_REQUEST, { error })
     }
 }
