@@ -1,0 +1,12 @@
+version: "1.0"
+
+services:
+  backend:
+    build:
+      context: ../../services/backend
+      dockerfile: Dockerfile.dev
+    restart: always
+    volumes:
+      - "../../services/backend:/app"
+    ports:
+      - "3000:3000"
